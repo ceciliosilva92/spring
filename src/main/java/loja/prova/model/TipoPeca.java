@@ -51,8 +51,8 @@ public class TipoPeca {
 		return updatre_at;
 	}
 
-	public void setID(Long iD) {
-		ID = iD;
+	public void setID(Long Id) {
+		ID = Id;
 	}
 
 	public void setNome(String nome) {
