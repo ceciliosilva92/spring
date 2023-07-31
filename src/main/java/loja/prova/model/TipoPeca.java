@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name="tipo_peca")
 public class TipoPeca {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long ID;

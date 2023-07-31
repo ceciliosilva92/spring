@@ -54,6 +54,40 @@ public class Peca {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy'MM'DD HH:mm:ss")
 	private LocalDateTime updatre_at;
 
+	
+	
+	public Long getID() {
+		return ID;
+	}
+
+	public double getCapacidade() {
+		return Capacidade;
+	}
+
+	public String getUniMedida() {
+		return UniMedida;
+	}
+
+	public int getQuantidade() {
+		return Quantidade;
+	}
+
+	public String getNome() {
+		return Nome;
+	}
+
+	public String getDescricao() {
+		return Descricao;
+	}
+
+	public LocalDateTime getCreated_at() {
+		return created_at;
+	}
+
+	public LocalDateTime getUpdatre_at() {
+		return updatre_at;
+	}
+
 	public void setID(Long iD) {
 		ID = iD;
 	}
