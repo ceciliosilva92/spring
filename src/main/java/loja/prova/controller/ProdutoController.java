@@ -27,12 +27,12 @@ public class ProdutoController {
         mav.addObject("produtos", produto);
         return mav;
 	}
-	//@RequestMapping(value="/produto/{id}", method=RequestMethod.GET)
-	//public ModelAndView getProduto1(@PathVariable("id") Long id) {
-	//	ModelAndView mav = new ModelAndView("marca1");
-    //   Optional<Produto> produto = produtoRepository.findById(id);
-    //    mav.addObject("nome", produto.get().getNome());
-    //    return mav;
-	//}
+	@RequestMapping(value="/produto/{id}", method=RequestMethod.GET)
+	public ModelAndView getProduto1(@PathVariable("id") Long id) {
+		ModelAndView mav = new ModelAndView("produto1");
+		Optional<Produto> produto = produtoRepository.findById(id);
+        mav.addObject("nome", produto.get().getPrecCusto());
+        return mav;
+	}
 	
 }

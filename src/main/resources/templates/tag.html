@@ -9,48 +9,14 @@
 </head>
 
 <body>
-	<H3 class="text-warning">Marcas</H3>
-	<!--<div th:each="marca : ${marcas}">
+	<H3 class="text wanring">Marcas</H3>
+	<div th:each="marca : ${marcas}">
 	<a th:href="@{/marca/{id}(id=${marca.ID})}" th:text="${marca.Nome}"></a>
-			<span th:text="${marca.created_at}"></span>
-	</div>-->
-	<table class="table table-striped table-hover">
-		<thead>
-			
-			<tr>
-				
-				<th> Id: </th>
-				<th> Nome: </th>
-				<th> Data Criação: </th>
-				<th> Data Atualização: </th>
-				<th> Ação: </th>
-				
-			</tr>
-			
-		</thead>
-		
-		<tbody>
-			
-			<tr th:each="marca : ${marcas}">
-				
-				<th th:text="${marca.ID}"></th>
-				<td><a th:href="@{/marca/{id}(id=${marca.ID})}" th:text="${marca.Nome}"></a></td>
-				<td th:text="${marca.created_at}"></td>
-				<td th:text="${marca.updated_at}"></td>
-				<td><a th:href="@{/marca/{id}/delete(id=${marca.ID})}" class="btn btn-danger">Apagar</a></td>
-				
-			</tr>
-			
-		</tbody>
-		
-	</table>
-	
+		<!--	<span th:text="${marca.created_at}"></span>-->
+	</div>
 	<hr class="divider my-4">
-	
 	<div class="row">
-		
 		<div class="col-6">
-			
 			<h6>Cadastrar marca</h6>
 			<th:block th:include="validador"></th:block>
 			<form method="POST" action="">
@@ -58,9 +24,7 @@
 				<button type="submit" class="btn btn-primary btn-lg btn-block my-2">enviar</button>
 				
 			</form>
-			
 		</div>
-		
 	</div>
 	
 </body>

@@ -1,6 +1,7 @@
 package loja.prova.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -9,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -34,6 +37,10 @@ public class Produto {
 	private boolean PcPronto;
 	
 	@ManyToOne
+	@JoinColumn(name = "marca_id", nullable = false)
+	private Marca marca;
+	
+	@ManyToOne
 	@JoinColumn(name = "peca_id",  nullable = true)
 	private Peca peca;
 	
@@ -44,6 +51,15 @@ public class Produto {
 	@ManyToOne
 	@JoinColumn(name = "usuario_id",  nullable = false)
 	private Usuario usuario;
+	
+	@ManyToMany
+	@JoinTable(
+			name="produto_tag",
+			joinColumns = @JoinColumn(name="produto_id"),
+			inverseJoinColumns =@JoinColumn(name="tag_id"))
+	private List<Tag> tags;
+		
+	//getters aqui
 
 	public Long getID() {
 		return ID;
@@ -77,6 +93,16 @@ public class Produto {
 		return usuario;
 	}
 
+	public Marca getMarca() {
+		return marca;
+	}
+	
+	//setters aqui
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
 	public void setID(Long iD) {
 		ID = iD;
 	}
@@ -107,6 +133,14 @@ public class Produto {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+	
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 	
 	

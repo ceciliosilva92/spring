@@ -30,6 +30,12 @@ public class MarcaServiceImplement implements MarcaService{
 		// TODO Auto-generated method stub
 		return marcaRepository.save(marca);
 	}
+
+	@Override
+	public Marca deleteById(Long Id) {
+		// TODO Auto-generated method stub
+		return deleteById(Id);
+	}
 	
 
 }

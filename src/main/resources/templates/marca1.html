@@ -9,10 +9,15 @@
 </head>
 
 <body>
-	<H3 class="text wanring"th:text="${nome}"></H3>
-	<div>
-		<p th:text="${nome}"></p>
-		<!--<span th:text="${data_criacao}"></span>-->
+	<H3 class="text-danger"> Editar marca: <span th:text="${nome}"></span></H3>
+	<div class="col-6">
+		<form method="POST" action="">
+			
+			<input type="text" name="Nome" id="Nome" class="form-control" th:value="${nome}">
+			<input type="hidden" name="ID" id="ID" class="form-control" th:value="${id}">
+			<button type="submit" class="btn btn-primary btn-lg btn-block my-2">enviar</button>
+				
+		</form>
 	</div>
 </body>
 	
