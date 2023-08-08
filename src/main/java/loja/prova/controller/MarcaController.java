@@ -47,6 +47,7 @@ public class MarcaController {
 			atribute.addFlashAttribute("msg", "Campo Obrigatorio vacio");
 			return "redirect:/marca";
 		}
+		atribute.addFlashAttribute("Sucess", "Cadatrada com Sucesso");
 		
 		marca.setCreated_at(LocalDateTime.now());
 		marca.setUpdated_at(LocalDateTime.now());
@@ -63,13 +64,15 @@ public class MarcaController {
 		
 	}
 	@RequestMapping(value="/marca/{id}", method=RequestMethod.POST)
-	public String updateMarca(Marca marca ) {
+	public String updateMarca(Marca marca, RedirectAttributes atribute ) {
 		
 		Marca marcaBase = marcaRepository.findById(marca.getID()).orElse(null);
 		marcaBase.setNome(marca.getNome());
 		marcaBase.setUpdated_at(LocalDateTime.now());
 		
 		marcaRepository.save(marcaBase);
+		
+		atribute.addFlashAttribute("Sucess","atualizada com sucesso");
 		
 		return "redirect:/marca";
 		
