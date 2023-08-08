@@ -24,11 +24,11 @@ public class Produto {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long ID;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy'MM'DD HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
 	private LocalDateTime created_at;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy'MM'DD HH:mm:ss")
-	private LocalDateTime updatre_at;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
+	private LocalDateTime updated_at;
 
 	@NotBlank
 	private Double PrecCusto;
@@ -70,7 +70,7 @@ public class Produto {
 	}
 
 	public LocalDateTime getUpdatre_at() {
-		return updatre_at;
+		return updated_at;
 	}
 
 	public Double getPrecCusto() {
@@ -112,7 +112,7 @@ public class Produto {
 	}
 
 	public void setUpdatre_at(LocalDateTime updatre_at) {
-		this.updatre_at = updatre_at;
+		this.updated_at = updatre_at;
 	}
 
 	public void setPrecCusto(Double precCusto) {

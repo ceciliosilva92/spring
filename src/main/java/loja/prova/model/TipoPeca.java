@@ -27,11 +27,11 @@ public class TipoPeca {
 	@NotBlank
 	private String Nome;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy'MM'DD HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
 	private LocalDateTime created_at;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy'MM'DD HH:mm:ss")
-	private LocalDateTime updatre_at;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
+	private LocalDateTime updated_at;
 
 	public Long getID() {
 		return ID;
@@ -49,7 +49,7 @@ public class TipoPeca {
 	}
 
 	public LocalDateTime getUpdatre_at() {
-		return updatre_at;
+		return updated_at;
 	}
 
 	public void setID(Long Id) {
@@ -65,7 +65,7 @@ public class TipoPeca {
 	}
 
 	public void setUpdatre_at(LocalDateTime updatre_at) {
-		this.updatre_at = updatre_at;
+		this.updated_at = updatre_at;
 	}
 
 	public void setPeca(Set<Peca> peca) {

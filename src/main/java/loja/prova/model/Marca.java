@@ -27,10 +27,10 @@ public class Marca {
 	@OneToMany(mappedBy="marca")
 	private Set<Produto>produto;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy'MM'DD HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
 	private LocalDateTime created_at;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy'MM'DD HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
 	private LocalDateTime updated_at;
 	
 	// getters aqui
