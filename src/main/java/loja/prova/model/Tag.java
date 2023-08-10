@@ -28,7 +28,7 @@ public class Tag {
 	private LocalDateTime created_at;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
-	private LocalDateTime updatre_at;
+	private LocalDateTime updated_at;
 	
 	@ManyToMany(mappedBy = "tags")
 	private List<Produto> produtos;
@@ -47,8 +47,8 @@ public class Tag {
 		return created_at;
 	}
 
-	public LocalDateTime getUpdatre_at() {
-		return updatre_at;
+	public LocalDateTime getUpdated_at() {
+		return updated_at;
 	}
 
 	public List<Produto> getProdutos() {
@@ -69,8 +69,8 @@ public class Tag {
 		this.created_at = created_at;
 	}
 
-	public void setUpdatre_at(LocalDateTime updatre_at) {
-		this.updatre_at = updatre_at;
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.created_at = updated_at;
 	}
 
 	public void setProdutos(List<Produto> produtos) {
