@@ -70,7 +70,7 @@ public class Tag {
 	}
 
 	public void setUpdated_at(LocalDateTime updated_at) {
-		this.created_at = updated_at;
+		this.updated_at = updated_at;
 	}
 
 	public void setProdutos(List<Produto> produtos) {
