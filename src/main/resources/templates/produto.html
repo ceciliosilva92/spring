@@ -1,0 +1,49 @@
+<div th:replace="common/header"></div>
+
+	<div class="container-fluid">
+
+	<div class="row">
+		<h3 class="text-warning col-10 mb-2">Produto</h3>
+
+		<th:block th:include="validador"></th:block>
+
+		<a href="/produto/cadastro" class="btn btn-primary col-1 ml-2 mb-2"><i class="fa fa-plus"></i></a>
+
+		<table class="table table-striped table-hover">
+			<thead>
+			
+				<tr>
+				
+					<th> Id: </th>
+					<th> Nome: </th>
+					<th> Data Criação: </th>
+					<th> Preço de Custo: </th>
+					<th> Ação: </th>
+				
+				</tr>
+			
+			</thead>
+		
+		<tbody>
+			
+			<tr th:each="produto : ${produtos}">
+				
+				<th th:text="${produto.ID}"></th>
+				<td th:if="${produto.pc_pronto}"><a th:href="@{/produto/{id}(id=${produto.ID})}" th:text="${produto.pc_pronto.Nome}"></a></td>
+				<td th:unless="${produto.pc_pronto}"><a th:href="@{/produto/{id}(id=${produto.ID})}" th:text="${produto.peca.Nome}"></a></td>
+				
+				<td th:text="${produto.created_at}"></td>
+				<td th:text="${produto.precCusto}"></td>
+				<td><a th:href="@{/produto/{id}/delete(id=${produto.ID})}" class="btn btn-danger">Apagar</a></td>
+				
+			</tr>
+			
+		</tbody>
+		
+	</table>
+	
+	</div>
+
+</div>
+
+<div th:replace="common/footer"></div>

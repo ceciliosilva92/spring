@@ -1,0 +1,16 @@
+<div th:replace="common/header"></div>
+
+	<div class="container-fluid">
+		
+	<H3 class="text-danger"> Editar produto: </H3>
+	<div class="col-6">
+		<form method="PUT" action="">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<input type="text" name="precCusto" id="precCusto" class="form-control" th:value="${precCusto}">
+			<input type="hidden" name="ID" id="ID" class="form-control" th:value="${id}">
+			<button type="submit" class="btn btn-primary btn-lg btn-block my-2">enviar</button>
+				
+		</form>
+	</div>
+</div>
+<div th:replace="common/footer"></div>

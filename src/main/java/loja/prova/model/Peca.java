@@ -84,7 +84,7 @@ public class Peca {
 		return created_at;
 	}
 
-	public LocalDateTime getUpdatre_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
 
@@ -116,8 +116,8 @@ public class Peca {
 		this.created_at = created_at;
 	}
 
-	public void setUpdatre_at(LocalDateTime updatre_at) {
-		this.updated_at = updatre_at;
+	public void setUpdatre_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
 	}
 	
 }

@@ -14,14 +14,14 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="produto")
 public class Produto { 
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long ID;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
@@ -30,10 +30,10 @@ public class Produto {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/DD HH:mm:ss")
 	private LocalDateTime updated_at;
 
-	@NotBlank
+	@NotNull
 	private Double PrecCusto;
 	
-	@NotBlank
+	@NotNull
 	private boolean PcPronto;
 	
 	@ManyToOne
@@ -69,7 +69,7 @@ public class Produto {
 		return created_at;
 	}
 
-	public LocalDateTime getUpdatre_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
 
@@ -111,8 +111,8 @@ public class Produto {
 		this.created_at = created_at;
 	}
 
-	public void setUpdatre_at(LocalDateTime updatre_at) {
-		this.updated_at = updatre_at;
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
 	}
 
 	public void setPrecCusto(Double precCusto) {

@@ -35,7 +35,7 @@ public class PcPronto {
 	private LocalDateTime created_at;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy'MM'DD HH:mm:ss")
-	private LocalDateTime updatre_at;
+	private LocalDateTime updated_at;
 
 	public Long getID() {
 		return ID;
@@ -53,8 +53,8 @@ public class PcPronto {
 		return created_at;
 	}
 
-	public LocalDateTime getUpdatre_at() {
-		return updatre_at;
+	public LocalDateTime getUpdated_at() {
+		return updated_at;
 	}
 
 	public void setID(Long iD) {
@@ -62,7 +62,7 @@ public class PcPronto {
 	}
 
 	public void setNome(String nome) {
-		Nome = nome;
+		this.Nome = nome;
 	}
 
 	public void setDescricao(String descricao) {
@@ -73,8 +73,8 @@ public class PcPronto {
 		this.created_at = created_at;
 	}
 
-	public void setUpdatre_at(LocalDateTime updatre_at) {
-		this.updatre_at = updatre_at;
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
 	}
 	
 
