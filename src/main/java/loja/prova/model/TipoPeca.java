@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotBlank;
 public class TipoPeca {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long ID;
 	
 	@OneToMany(mappedBy = "tipo_peca")
@@ -48,7 +48,7 @@ public class TipoPeca {
 		return created_at;
 	}
 
-	public LocalDateTime getUpdatre_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
 
@@ -64,8 +64,8 @@ public class TipoPeca {
 		this.created_at = created_at;
 	}
 
-	public void setUpdatre_at(LocalDateTime updatre_at) {
-		this.updated_at = updatre_at;
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
 	}
 
 	public void setPeca(Set<Peca> peca) {

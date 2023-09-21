@@ -2,17 +2,15 @@ package loja.prova.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import loja.prova.model.Marca;
@@ -31,7 +29,7 @@ import loja.prova.repository.TipoPecaRepository;
 import loja.prova.repository.UsuarioRepository;
 
 @Controller
-
+@RequestMapping("/produto")
 public class ProdutoController {
 
 	@Autowired
@@ -49,30 +47,34 @@ public class ProdutoController {
 	@Autowired 
 	UsuarioRepository usuarioRepository;
 	
-	@RequestMapping(value="/produto", method=RequestMethod.GET)
-	public ModelAndView getProduto() {
-		ModelAndView mav = new ModelAndView("produto");
+	@GetMapping
+	public String getProduto(Model mav) {
+		
         List<Produto> produto = produtoRepository.findAll();
-        mav.addObject("produtos", produto);
-        return mav;
+        mav.addAttribute("produtos", produto);
+        return "produto/index";
 	}
-	@RequestMapping(value="/produto/{id}", method=RequestMethod.GET)
-	public ModelAndView getProduto1(@PathVariable("id") Long id) {
-		ModelAndView mav = new ModelAndView("produto1");
-		Optional<Produto> produto = produtoRepository.findById(id);
-        mav.addObject("nome", produto.get().getPrecCusto());
-        mav.addObject("precCusto", produto.get().getPrecCusto());
-        return mav;
+	@GetMapping("/{Id}")
+	public String getedit(Model mav, @PathVariable("Id") Long id) {
+		List<Marca> marcalist = marcaRepository.findAll();
+		List<TipoPeca> tpecalist = tipoPecaRepository.findAll();
+		List<Tag> taglist = tagRepository.findAll();
+		Produto produto = produtoRepository.findById(id).get();
+		mav.addAttribute("produto", produto);
+		mav.addAttribute("marca", marcalist);
+        mav.addAttribute("tag", taglist);
+        mav.addAttribute("tpeca", tpecalist);
+        return "/produto/editar";
 	}
-	@RequestMapping(value = "/produto/{Id}/delete", method =RequestMethod.GET)
-	public String deleteMarca(@PathVariable("Id")long id, RedirectAttributes atribute) {
+	@GetMapping("/{Id}/delete")
+	public String deleteProduto(@PathVariable("Id")long id, RedirectAttributes atribute) {
 		produtoRepository.deleteById(id);
 		atribute.addFlashAttribute("Sucess","Deletado com sucesso");
 		return "redirect:/produto";
 		
 	}
 	
-	@GetMapping("/produto/cadastro")
+	@GetMapping("/cadastro")
 	public String createProduto(Model mav) {
 		List<Marca> marcalist = marcaRepository.findAll();
 		List<TipoPeca> tpecalist = tipoPecaRepository.findAll();
@@ -80,7 +82,7 @@ public class ProdutoController {
 		mav.addAttribute("mar", marcalist);
 		mav.addAttribute("tag", taglist);
 		mav.addAttribute("tip", tpecalist);
-		return "produto2";
+		return "produto/cadastro";
 		
 	}
 	@RequestMapping(value="/Produto/{id}", method=RequestMethod.POST)
@@ -98,21 +100,22 @@ public class ProdutoController {
 		
 	}
 
-	@RequestMapping(value="/produto", method=RequestMethod.POST)
-	public String postProduto(Produto produto, BindingResult result, RedirectAttributes atribute, String is_pc_pronto, PcPronto pcPronto, Peca peca) {
+	@PostMapping
+	public String postProduto(String is_pc_pronto, Produto produto, PcPronto pc_pronto, 
+			 Peca peca, BindingResult result, RedirectAttributes atribute) {
 		
 		if(result.hasErrors()) {
-			atribute.addFlashAttribute("msg", "Campo Obrigatorio vacio");
-//			return "redirect:/produto/cadastro";
 			System.out.println(result.getAllErrors());
+			atribute.addFlashAttribute("msg", "Campo Obrigatorio vacio");
+			return "redirect:/produto/cadastro";
 		}
 	
 		atribute.addFlashAttribute("Sucess", "Cadatrada com Sucesso");
 		
 		if(is_pc_pronto.equals("pc_pronto")) {
-			pcPronto.setCreated_at(LocalDateTime.now());
+			pc_pronto.setCreated_at(LocalDateTime.now());
 			
-			produto.setPc_pronto(pcProntoRepository.save(pcPronto));
+			produto.setPc_pronto(pcProntoRepository.save(pc_pronto));
 			produto.setPcPronto(true);
 		}else {
 			peca.setCreated_at(LocalDateTime.now());

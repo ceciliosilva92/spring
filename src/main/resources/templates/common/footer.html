@@ -58,7 +58,22 @@
     <!-- Page level custom scripts -->
     <script src="/js/demo/chart-area-demo.js"></script>
     <script src="/js/demo/chart-pie-demo.js"></script>
-
+	
+	<script>
+		
+		$(document).ready(function(){
+			if ($("#pc-pronto").is(":checked")){
+				$("#pecas").addClass("d-none");
+			}
+			$("#pc-pronto").click(function(){
+				$("#pecas").addClass("d-none");
+			});
+			$("#peca").click(function(){
+				$("#pecas").removeClass("d-none");
+			});
+		});
+		
+	</script>
 </body>
 
 </html>

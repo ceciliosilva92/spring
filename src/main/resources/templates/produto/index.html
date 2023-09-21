@@ -29,8 +29,8 @@
 			<tr th:each="produto : ${produtos}">
 				
 				<th th:text="${produto.ID}"></th>
-				<td th:if="${produto.pc_pronto}"><a th:href="@{/produto/{id}(id=${produto.ID})}" th:text="${produto.pc_pronto.Nome}"></a></td>
-				<td th:unless="${produto.pc_pronto}"><a th:href="@{/produto/{id}(id=${produto.ID})}" th:text="${produto.peca.Nome}"></a></td>
+				<td th:if="${produto.pc_pronto}"><a th:href="@{/produto/{Id}(Id=${produto.ID})}" th:text="${produto.pc_pronto.Nome}"></a></td>
+				<td th:unless="${produto.pc_pronto}"><a th:href="@{/produto/{Id}(Id=${produto.ID})}" th:text="${produto.peca.Nome}"></a></td>
 				
 				<td th:text="${produto.created_at}"></td>
 				<td th:text="${produto.precCusto}"></td>

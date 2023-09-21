@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,7 +36,7 @@ public class MarcaController {
 	
 	@GetMapping("/{id}")
 	public ModelAndView getMarcaid(@PathVariable("id") Long id) {
-		ModelAndView mav = new ModelAndView("marca1");
+		ModelAndView mav = new ModelAndView("marca/marca1");
         Optional<Marca> marca = marcaRepository.findById(id);
         mav.addObject("nome", marca.get().getNome());
         mav.addObject("id", marca.get().getID());
@@ -62,14 +61,14 @@ public class MarcaController {
 	}
 	
 	@GetMapping("/{id}/delete")
-	public String deleteMarca(@PathVariable("Id")long id, RedirectAttributes atribute) {
+	public String deleteMarca(@PathVariable("id")long id, RedirectAttributes atribute) {
 		marcaRepository.deleteById(id);
 		atribute.addFlashAttribute("Sucess","Deletado com sucesso");
 		return "redirect:/marca";
 		
 	}
 	
-	@PutMapping("/{id}")
+	@PostMapping("/{id}")
 	public String putMarca( Marca marca, BindingResult result, RedirectAttributes atribute) {
 		System.out.println("por fin");
 		if (result.hasErrors()) {

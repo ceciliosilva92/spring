@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name="pc_pronto")
 public class PcPronto {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long ID;
 	
 	@OneToMany(mappedBy = "pc_pronto")
