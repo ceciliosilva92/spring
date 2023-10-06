@@ -6,7 +6,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,8 +39,13 @@ public class PcProntoController {
         mav.addObject("nome",pcPronto.get().getNome());
         return mav;
 	}
-	@RequestMapping(value="/pcPronto/{id}", method=RequestMethod.POST)
-	public String updatePcPronto(PcPronto pcPronto, RedirectAttributes atribute ) {
+	@PutMapping("/{id}")
+	public String putPcPronto(PcPronto pcPronto, RedirectAttributes atribute, BindingResult result ) {
+		
+		if (result.hasErrors()) {
+			atribute.addFlashAttribute("error", "Algum campo deve ser obrigatório!");
+			return "redirect: /produto/"+ pcPronto.getID();
+		}
 		
 		PcPronto pcProntoBase = pcProntoRepository.findById(pcPronto.getID()).orElse(null);
 		pcProntoBase.setNome(pcPronto.getNome());

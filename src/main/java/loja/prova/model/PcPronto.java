@@ -57,8 +57,8 @@ public class PcPronto {
 		return updated_at;
 	}
 
-	public void setID(Long iD) {
-		ID = iD;
+	public void setID(Long ID) {
+		ID = ID;
 	}
 
 	public void setNome(String nome) {

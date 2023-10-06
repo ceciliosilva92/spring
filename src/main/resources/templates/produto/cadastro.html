@@ -64,7 +64,7 @@
 					
 					<div class="form-group col-4">
 						<label for="tipoPeca"> Tipo de Peça: </label>
-						<select name="tipoPeca" id="tipoPeca" class="form-control">
+						<select name="tipo_peca" id="tipoPeca" class="form-control">
 							<option th:each="tp : ${tip}" th:value="${tp.ID}" th:text="${tp.Nome}"></option>
 						</select>
 					</div>

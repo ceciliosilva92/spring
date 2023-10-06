@@ -26,7 +26,7 @@ public class TagController {
 	
 	@RequestMapping(value="/tag", method=RequestMethod.GET)
 	public ModelAndView getTeg() {
-		ModelAndView mav = new ModelAndView("Tag");
+		ModelAndView mav = new ModelAndView("Tag/tag");
         List<Tag> tag = tagRepository.findAll();
         mav.addObject("tags", tag);
         return mav;
@@ -34,7 +34,7 @@ public class TagController {
 	
 	@RequestMapping(value="/tag/{id}", method=RequestMethod.GET)
 	public ModelAndView getTag(@PathVariable("id") Long id) {
-		ModelAndView mav = new ModelAndView("tag1");
+		ModelAndView mav = new ModelAndView("Tag/tag1");
         Optional<Tag> tag = tagRepository.findById(id);
         mav.addObject("nome", tag.get().getNome());
         return mav;

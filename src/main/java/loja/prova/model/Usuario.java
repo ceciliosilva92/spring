@@ -3,8 +3,11 @@ package loja.prova.model;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +19,17 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name="usuario")
 public class Usuario {
+public Usuario() {}
+	
+	public Usuario(String Login, String Senha,String Nome) {
+		super();
+		this.Nome = Nome;
+		this.created_at= LocalDateTime.now();
+		this.updated_at= LocalDateTime.now();
+		this.Login = Login;
+		BCryptPasswordEncoder kripto = new BCryptPasswordEncoder();
+		this.Senha=kripto.encode(Senha);
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,10 +42,13 @@ public class Usuario {
 	private String Nome;
 	
 	@NotBlank
+	@Column(unique=true)
 	private String Login;
 	
 	@NotBlank
 	private String Senha;
+	
+	private String role;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/M/M/DD HH:mm:ss")
 	private LocalDateTime created_at;
@@ -59,8 +76,12 @@ public class Usuario {
 		return created_at;
 	}
 
-	public LocalDateTime getUpdatre_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
+	}
+	
+	public String getRole() {
+		return role;
 	}
 
 	public void setID(Long iD) {
@@ -83,9 +104,15 @@ public class Usuario {
 		this.created_at = created_at;
 	}
 
-	public void setUpdatre_at(LocalDateTime updatre_at) {
-		this.updated_at = updatre_at;
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
 	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	
 	
 	
 }

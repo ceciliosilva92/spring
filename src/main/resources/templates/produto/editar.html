@@ -3,13 +3,13 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col">
-			<h3 class="text-danger"> Cadastrando produto: </h3>
+			<h3 class="text-danger"> Editando produto: </h3>
 			
 			<th:block th:include="validador"></th:block>
 			
 			<form th:method="put" th:action="@{/produto/{id}(id=${produto.ID})}">
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-				
+				<input type="hidden" name="ID" id="ID" class="form-control" th:value="${produto.ID}">
 				<div class="row">
 					<div class="form-group col-8">
 						<label for="name"> Nome: </label>
@@ -20,8 +20,8 @@
 					<div class="form-group col-4">
 						<label for="marca"> Marca: </label>
 						<select name="marca" id="marca" class="form-control">
-							<option th:each="m : ${mar}" th:value="${m.ID}" th:text="${m.Nome}" th:if="${produto.marca.ID} ==${m.ID}" selected></option>
-							<option th:each="m : ${mar}" th:value="${m.ID}" th:text="${m.Nome}" th:unless="${produto.marca.ID} ==${m.ID}"></option>
+							<option th:each="m : ${marca}" th:value="${m.ID}" th:text="${m.Nome}" th:if="${produto.marca.ID} ==${m.ID}" selected></option>
+							<option th:each="m : ${marca}" th:value="${m.ID}" th:text="${m.Nome}" th:unless="${produto.marca.ID} ==${m.ID}"></option>
 						</select>
 					</div>		
 				</div>
@@ -29,7 +29,7 @@
 				<div class="row">
 					<div class="form-group col-4">
 						<label for="PrecCusto"> Preço de custo: </label>
-						<input type="number" step="0.01" name="PrecCusto" id="PrecCusto" class="form-control" th.value="${produto.PrecCusto}">
+						<input type="number" step="0.01" name="PrecCusto" id="PrecCusto" class="form-control" th:value="${produto.PrecCusto}">
 					</div>
 					
 					<div class="form-group col-4">
@@ -60,7 +60,7 @@
 					<div class="form-group col-2">
 						<label for="UniMedida"> Unidade de Medida: </label>
 						<input type="text" name="UniMedida" id="UniMedida" class="form-control" th:if="${produto.pc_pronto}">
-						<input type="text" name="UniMedida" id="UniMedida" class="form-control" th:unless="${produto.pc_pronto}" th:value"${produto.peca.UniMedida}">
+						<input type="text" name="UniMedida" id="UniMedida" class="form-control" th:unless="${produto.pc_pronto}" th:value="${produto.peca.UniMedida}">
 					</div>
 
 					<div class="form-group col-2">
@@ -70,13 +70,13 @@
 					</div>
 					
 					<div class="form-group col-4">
-						<label for="tipoPeca"> Tipo de Peça: </label>
-						<select name="tipoPeca" id="tipoPeca" class="form-control" th:if="${produto.peca}">
-							<option th:each="tp : ${tpeca}" th:value="${tp.ID}" th:text="${tp.Nome}" th:if="${produto.peca.tipo_peca.ID}=={tp.ID}" selected></option>
-							<option th:each="tp : ${tpeca}" th:value="${tp.ID}" th:text="${tp.Nome}" th:unless="${produto.peca.tipo_peca.ID}=={tp.ID}" ></option>
+						<label for="tipoPeca"> Tipo de Peca </label>
+						<select name="tipo_peca" id="tipoPeca" class="form-control" th:if="${produto.peca}">
+							<option th:each="tp:${tpeca}" th:value="${tp.ID}" th:text="${tp.Nome}" th:if="${produto.peca.tipo_peca.ID} == ${tp.ID}" selected></option>
+							<option th:each="tp:${tpeca}" th:value="${tp.ID}" th:text="${tp.Nome}" th:unless="${produto.peca.tipo_peca.ID}==${tp.ID}" ></option>
 						</select>
-						<select name="tipoPeca" id="tipoPeca" class="form-control" th:unless="${produto.peca}">
-							<option th:each="tp:${tip}" th:value="${tp.ID} " th:text="${tp.Nome}"></option>
+						<select name="tipo_peca" id="tipoPeca" class="form-control" th:unless="${produto.peca}">
+							<option th:each="tp:${tpeca}" th:value="${tp.ID} " th:text="${tp.Nome}"></option>
 						</select>
 					</div>
 				</div>

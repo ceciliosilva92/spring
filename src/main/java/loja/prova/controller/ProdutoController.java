@@ -3,12 +3,15 @@ package loja.prova.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -85,12 +88,65 @@ public class ProdutoController {
 		return "produto/cadastro";
 		
 	}
-	@RequestMapping(value="/Produto/{id}", method=RequestMethod.POST)
-	public String updateProduto(Produto produto, RedirectAttributes atribute ) {
-		
+	@PostMapping("/{Id}")
+	public String putMarca(String is_pc_pronto, Produto produto, Peca peca ,PcPronto pcPronto, BindingResult result, RedirectAttributes atribute) {
+		System.out.println("por fin");
+		if (result.hasErrors()) {
+			atribute.addFlashAttribute("error", "Algum campo deve ser obrigatório!");
+			return  "redirect:/produto/"+ produto.getID();
+		}
 		Produto produtoBase = produtoRepository.findById(produto.getID()).orElse(null);
+		if(is_pc_pronto.equals("pc_pronto")) {
+			
+			if (produtoBase.getPc_pronto() == null) {
+
+				pcPronto.setCreated_at(LocalDateTime.now());
+				pcPronto.setUpdated_at(LocalDateTime.now());
+				
+				produtoBase.setPc_pronto((pcProntoRepository.save(pcPronto)));
+				produtoBase.setPeca(null);
+				
+			} else {
+
+				PcPronto pcProntoBase = pcProntoRepository.findById(produtoBase.getPc_pronto().getID()).get();
+				
+				pcProntoBase.setUpdated_at(LocalDateTime.now());
+				pcProntoBase.setNome(pcPronto.getNome());
+				pcProntoBase.setDescricao(pcPronto.getDescricao());
+			}
+			
+			produtoBase.setPcPronto(true);
+			
+		} else {
+
+			if (produtoBase.getPeca() == null) {
+
+				peca.setCreated_at(LocalDateTime.now());
+				peca.setUpdated_at(LocalDateTime.now());
+				
+				produtoBase.setPeca(pecaRepository.save(peca));
+				produtoBase.setPc_pronto(null);
+				
+			} else {
+				
+				Peca pecaBase = pecaRepository.findById(produtoBase.getPeca().getID()).get();
+			
+				pecaBase.setUpdated_at(LocalDateTime.now());
+				pecaBase.setCapacidade(peca.getCapacidade());
+				pecaBase.setUniMedida(peca.getUniMedida());
+				pecaBase.setQuantidade(peca.getQuantidade());
+				pecaBase.setTipo_peca(peca.getTipo_peca());
+				pecaBase.setNome(peca.getNome());
+				pecaBase.setDescricao(peca.getDescricao());
+			
+			}
+			
+			produtoBase.setPcPronto(false);
+		}
+		System.out.println("por fin");
 		produtoBase.setPrecCusto(produto.getPrecCusto());
 		produtoBase.setUpdated_at(LocalDateTime.now());
+		produtoBase.setMarca(produto.getMarca());
 		
 		produtoRepository.save(produtoBase);
 		
@@ -123,7 +179,8 @@ public class ProdutoController {
 			produto.setPeca(peca);
 			produto.setPcPronto(false);
 		}
-		Usuario usuarioBase = usuarioRepository.findById((long) 1).get();
+		Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuarioBase = usuarioRepository.encontrarLogin(authentication.getName());
 		produto.setUsuario(usuarioBase);
 		produto.setCreated_at(LocalDateTime.now());
 		produtoRepository.save(produto);

@@ -5,19 +5,22 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import loja.prova.model.Marca;
+import loja.prova.model.Usuario;
 import loja.prova.repository.MarcaRepository;
-import loja.prova.repository.TagRepository;
+//import loja.prova.repository.TagRepository;
+import loja.prova.repository.UsuarioRepository;
 @Component
 public class Semeadora implements CommandLineRunner {
 	@Autowired
 	MarcaRepository marcaRepository;
-//	@Autowired
+	@Autowired
+	UsuarioRepository usuarioRepository;
 //	TagRepository tagRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 		
-		String [] marcas = {"Acer", "Samsung","LG"};
+		String [] marcas = {"Acer", "Samsung","LG","Kingston"};
 		
 		for(String m: marcas) {
 			
@@ -28,6 +31,12 @@ public class Semeadora implements CommandLineRunner {
 				marcaRepository.save(marca);
 			}
 		}
+		Usuario user = usuarioRepository.encontrarLogin("admin");
+				
+				if(user==null) {
+					user=new Usuario("admin", "53036777", "cecilio");
+					usuarioRepository.save(user);
+				}
 		
 	}
 
