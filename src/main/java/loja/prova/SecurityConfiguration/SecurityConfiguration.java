@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -39,12 +38,13 @@ public class SecurityConfiguration {
 		return http.authorizeHttpRequests(
 				authorizeConfig ->{
 					authorizeConfig.requestMatchers("/login").permitAll();
-					authorizeConfig.requestMatchers("/produto").hasAuthority("admin");
-//					authorizeConfig.requestMatchers("/marca/{id}").permitAll();
+					authorizeConfig.requestMatchers("/produto", "/tags").hasAuthority("admin");
+					authorizeConfig.requestMatchers("/").permitAll();
 //					authorizeConfig.requestMatchers("/marca/{id}").permitAll();
 					authorizeConfig.anyRequest().authenticated();
 				})
-				.formLogin(Customizer.withDefaults())
+				.formLogin(form  -> form.loginPage("/login").defaultSuccessUrl("/marca"))
+				.logout(logout -> logout.logoutSuccessUrl("/"))
 				.build();
 		
 	}

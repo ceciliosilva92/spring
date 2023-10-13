@@ -73,16 +73,16 @@ public class UsuarioController {
 		Usuario usuarioBase =usuarioRepository.findById(usuario.getID()).orElse(null);
 		usuarioBase.setNome(usuario.getNome());
 		usuarioBase.setLogin(usuario.getLogin());
-		if(senha!=null) {
+		if(!senha.equals("")) {
 			BCryptPasswordEncoder krypto = new BCryptPasswordEncoder();
 			usuario.setSenha(krypto.encode(senha));
-		}else {
-			usuarioBase.setSenha(usuarioBase.getSenha());
 		}
 		usuarioBase.setUpdated_at(LocalDateTime.now());
 		
 		usuarioRepository.save(usuarioBase);
+		
 		attribute.addFlashAttribute("Sucess","Atualizado com suceso");
+		
 		return "redirect/usuario";
 	}
 	@GetMapping("/{id}/delete")

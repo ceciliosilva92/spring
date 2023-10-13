@@ -25,19 +25,40 @@
 			</thead>
 		
 		<tbody>
-			
-			<tr th:each="produto : ${produtos}">
+			<div th:each="produto : ${produtos}">
+			<tr>
 				
 				<th th:text="${produto.ID}"></th>
-				<td th:if="${produto.pc_pronto}"><a th:href="@{/produto/{Id}(Id=${produto.ID})}" th:text="${produto.pc_pronto.Nome}"></a></td>
-				<td th:unless="${produto.pc_pronto}"><a th:href="@{/produto/{Id}(Id=${produto.ID})}" th:text="${produto.peca.Nome}"></a></td>
+				<td th:if="${produto.pc_pronto}"><span th:text="${produto.pc_pronto.Nome}"></span></td>
+				<td th:unless="${produto.pc_pronto}"><span th:text="${produto.peca.Nome}"></span></td>
 				
 				<td th:text="${produto.created_at}"></td>
 				<td th:text="${produto.precCusto}"></td>
-				<td><a th:href="@{/produto/{id}/delete(id=${produto.ID})}" class="btn btn-danger">Apagar</a></td>
-				
+				<td>
+					<button class="btn btn-outline-primary" data-toggle="collapse" th:data-target="'#row'+${produto.ID}"><i class="fa fa-eye"></i></button>
+					<a th:href="@{/produto/{id}/delete(id=${produto.ID})}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+					<a th:href="@{/produto/{Id}(Id=${produto.ID})}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+				</td>
 			</tr>
 			
+			<tr th:id="'row' + ${produto.ID}" class="collapse">
+				<td colspan="3">
+					<div>
+						Descrição
+						<br>
+						<span th:if="${produto.pc_pronto}" th:text="${produto.pc_pronto.Descricao}"></span>
+						<span th:unless="${produto.pc_pronto}" th:text="${produto.peca.Descricao}"></span>
+					</div>
+				</td>
+				<td colspan="2">
+					<div>
+						Tags:
+						<span th:each="t : ${produto.tags}" th:text="${t.Nome} + ', '"></span>
+					</div>
+				</td>
+				
+			</tr>
+			</div>
 		</tbody>
 		
 	</table>

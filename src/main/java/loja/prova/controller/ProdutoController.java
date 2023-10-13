@@ -89,7 +89,7 @@ public class ProdutoController {
 		
 	}
 	@PostMapping("/{Id}")
-	public String putMarca(String is_pc_pronto, Produto produto, Peca peca ,PcPronto pcPronto, BindingResult result, RedirectAttributes atribute) {
+	public String putProduto(String is_pc_pronto, Produto produto, Peca peca ,PcPronto pcPronto, BindingResult result, RedirectAttributes atribute) {
 		System.out.println("por fin");
 		if (result.hasErrors()) {
 			atribute.addFlashAttribute("error", "Algum campo deve ser obrigatório!");
@@ -147,6 +147,7 @@ public class ProdutoController {
 		produtoBase.setPrecCusto(produto.getPrecCusto());
 		produtoBase.setUpdated_at(LocalDateTime.now());
 		produtoBase.setMarca(produto.getMarca());
+		produtoBase.setTags(produto.getTags());
 		
 		produtoRepository.save(produtoBase);
 		
